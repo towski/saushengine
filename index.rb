@@ -6,7 +6,7 @@ require 'robots'
 require 'open-uri'
 require 'hpricot'
 
-DataMapper.setup(:default, 'mysql://root:root@localhost/saush')
+DataMapper.setup(:default, 'mysql://root@localhost/saush')
 FRESHNESS_POLICY = 60 * 60 * 24 * 7 # 7 days
 
 class Page
@@ -16,7 +16,7 @@ class Page
   property :url,         String, :length => 255
   property :title,       String, :length => 255
   has n, :locations
-  has n, :words, :through => :locations
+  has n, :words#, :through => :locations
   property :created_at,  DateTime
   property :updated_at,  DateTime  
   
@@ -45,7 +45,7 @@ class Word
   property :id,         Serial
   property :stem,       String
   has n, :locations
-  has n, :pages, :through => :locations
+  has n, :pages#, :through => :locations
 
   def self.find(word)
     wrd = first(:stem => word)
